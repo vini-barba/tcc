@@ -1,0 +1,30 @@
+service: helper
+app: skoll
+tenant: viniciusgomes
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: us-east-1
+  deploymentBucket:
+    name: skoll
+
+functions:
+  responseHeader:
+    handler: handler.responseHeader
+    events:
+      - http:
+          path: helper/responseHeader
+          method: get
+          cors:
+            origin: '*'
+            maxAge: 86400
+  handleEvent:
+    handler: handler.handleEvent
+    events:
+      - http:
+          path: helper/handleEvent
+          method: post
+          cors:
+            origin: '*'
+            maxAge: 86400

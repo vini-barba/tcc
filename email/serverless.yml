@@ -1,0 +1,26 @@
+service: email
+app: skoll
+tenant: viniciusgomes
+provider:
+  name: aws
+  runtime: nodejs8.10
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - 'ses:SendEmail'
+      Resource: '*'
+  stage: dev
+  region: us-east-1
+  deploymentBucket:
+    name: skoll
+
+functions:
+  sendEmail:
+    handler: handler.sendEmail
+    events:
+      - http:
+          path: email
+          method: post
+          cors:
+            origin: '*'
+            maxAge: 86400

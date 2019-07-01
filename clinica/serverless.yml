@@ -1,0 +1,55 @@
+service: clinica
+app: skoll
+tenant: viniciusgomes
+provider:
+  name: aws
+  runtime: nodejs8.10
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+      Resource: '*'
+  stage: dev
+  region: us-east-1
+  deploymentBucket:
+    name: skoll
+
+functions:
+  setClinica:
+    handler: handler.setClinica
+    events:
+      - http:
+          path: clinica
+          method: post
+          cors:
+            origin: '*'
+            maxAge: 86400
+  getClinica:
+    handler: handler.getClinica
+    events:
+      - http:
+          path: clinica
+          method: get
+          cors:
+            origin: '*'
+            maxAge: 86400
+  setCampanha:
+    handler: handler.setCampanha
+    events:
+      - http:
+          path: clinica/campanha
+          method: post
+          cors:
+            origin: '*'
+            maxAge: 86400
+  getCampanha:
+    handler: handler.getCampanha
+    events:
+      - http:
+          path: clinica/campanha
+          method: get
+          cors:
+            origin: '*'
+            maxAge: 86400
+  mudaStatusCampanhaAuto:
+    handler: handler.mudaStatusCampanhaAuto

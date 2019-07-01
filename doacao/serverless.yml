@@ -1,0 +1,35 @@
+service: doacao
+app: skoll
+tenant: viniciusgomes
+provider:
+  name: aws
+  runtime: nodejs8.10
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+      Resource: '*'
+  stage: dev
+  region: us-east-1
+  deploymentBucket:
+    name: skoll
+
+functions:
+  setDoacao:
+    handler: handler.setDoacao
+    events:
+      - http:
+          path: doacao
+          method: post
+          cors:
+            origin: '*'
+            maxAge: 86400
+  getDoacao:
+    handler: handler.getDoacao
+    events:
+      - http:
+          path: doacao
+          method: get
+          cors:
+            origin: '*'
+            maxAge: 86400

@@ -1,0 +1,102 @@
+service: animal
+app: skoll
+tenant: viniciusgomes
+provider:
+  name: aws
+  runtime: nodejs8.10
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+      Resource: '*'
+  stage: dev
+  region: us-east-1
+  deploymentBucket:
+    name: skoll
+
+functions:
+  setAnimalType:
+    handler: handler.setAnimalType
+    events:
+      - http:
+          path: animal/type
+          method: post
+          cors:
+            origin: '*'
+            maxAge: 86400
+  getAnimalType:
+    handler: handler.getAnimalType
+    events:
+      - http:
+          path: animal/type
+          method: get
+          cors:
+            origin: '*'
+            maxAge: 86400
+  setAnimal:
+    handler: handler.setAnimal
+    events:
+      - http:
+          path: animal
+          method: post
+          cors:
+            origin: '*'
+            maxAge: 86400
+  getAnimal:
+    handler: handler.getAnimal
+    events:
+      - http:
+          path: animal
+          method: get
+          cors:
+            origin: '*'
+            maxAge: 86400
+  setAnimalDonor:
+    handler: handler.setAnimalDonor
+    events:
+      - http:
+          path: animal/donor
+          method: post
+          cors:
+            origin: '*'
+            maxAge: 86400
+  getAnimalDonor:
+    handler: handler.getAnimalDonor
+    events:
+      - http:
+          path: animal/donor
+          method: get
+          cors:
+            origin: '*'
+            maxAge: 86400
+  setAnimalReceptor:
+    handler: handler.setAnimalReceptor
+    events:
+      - http:
+          path: animal/receptor
+          method: post
+          cors:
+            origin: '*'
+            maxAge: 86400
+  mudaStatusPedido:
+    handler: handler.mudaStatusPedido
+    events:
+      - http:
+          path: animal/receptor
+          method: put
+          cors:
+            origin: '*'
+            maxAge: 86400
+  getAnimalReceptor:
+    handler: handler.getAnimalReceptor
+    events:
+      - http:
+          path: animal/receptor
+          method: get
+          cors:
+            origin: '*'
+            maxAge: 86400
+  mudaStatusDoadorAuto:
+    handler: handler.mudaStatusDoadorAuto
+  mudaStatusPedidoAuto:
+    handler: handler.mudaStatusPedidoAuto

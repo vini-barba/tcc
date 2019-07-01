@@ -1,0 +1,21 @@
+service: endereco
+app: skoll
+tenant: viniciusgomes
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: us-east-1
+  deploymentBucket:
+    name: skoll
+
+functions:
+  getEndereco:
+    handler: handler.getEndereco
+    events:
+      - http:
+          path: endereco
+          method: get
+          cors:
+            origin: "*"
+            maxAge: 86400
